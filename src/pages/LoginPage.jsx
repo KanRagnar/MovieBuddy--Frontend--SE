@@ -74,7 +74,11 @@ export const LoginPage = () => {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+        style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
+      >
         <div>
           <label style={{ display: 'block', fontSize: '0.82rem', color: 'var(--text-secondary)', marginBottom: '5px' }}>
             Username

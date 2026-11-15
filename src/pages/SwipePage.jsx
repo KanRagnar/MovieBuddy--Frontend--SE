@@ -87,6 +87,7 @@ export const SwipePage = () => {
           </div>
         ) : (
           <div
+            className="swipe-profile-card"
             style={{
               backgroundColor: 'var(--bg-card)',
               borderRadius: 'var(--radius-lg)',
@@ -100,10 +101,10 @@ export const SwipePage = () => {
           >
             {/* Card Media Area: Toggle between Photo & Favorite Movies Grid per Mockup */}
             <div
+              className="swipe-card-media"
               onClick={() => setShowMoviesGrid((prev) => !prev)}
               style={{
                 position: 'relative',
-                height: '330px',
                 backgroundColor: '#11141a',
                 cursor: 'pointer'
               }}
@@ -115,7 +116,7 @@ export const SwipePage = () => {
                   onError={(e) => {
                     e.currentTarget.src = FALLBACK_AVATAR;
                   }}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  className="swipe-profile-image"
                 />
               ) : (
                 <div style={{ padding: '14px', height: '100%', overflowY: 'auto' }}>

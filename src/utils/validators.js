@@ -31,5 +31,8 @@ export const validateProfile = (profile) => {
   if (Number.isNaN(age) || age < 18 || age > 120) {
     return 'Age must be between 18 and 120.';
   }
+  if (profile.bio && profile.bio.length > 280) {
+    return 'About Me must be 280 characters or fewer.';
+  }
   return null;
 };

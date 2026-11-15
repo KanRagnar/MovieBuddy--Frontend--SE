@@ -20,6 +20,7 @@ export const ProfilePage = () => {
   const [formData, setFormData] = useState({
     name: '',
     age: 25,
+    bio: '',
     madeIn: '',
     job: '',
     sex: '',
@@ -33,6 +34,7 @@ export const ProfilePage = () => {
       setFormData({
         name: user.name || '',
         age: user.age || 25,
+        bio: user.bio || '',
         madeIn: user.madeIn || '',
         job: user.job || '',
         sex: user.sex || '',
@@ -88,7 +90,7 @@ export const ProfilePage = () => {
     <>
       <Navbar />
       <ToastMessage toast={toast} onClose={clearToast} />
-      <div className="page-content">
+      <div className="page-content profile-page-content">
         {/* Profile Header Card */}
         <div
           style={{
@@ -106,7 +108,7 @@ export const ProfilePage = () => {
               onError={(e) => {
                 e.currentTarget.src = FALLBACK_AVATAR;
               }}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              className="profile-picture"
             />
             <button
               onClick={handleLogout}
@@ -147,13 +149,20 @@ export const ProfilePage = () => {
               </button>
             </div>
 
+            {!isEditing && (
+              <section className="profile-about">
+                <h3>About Me</h3>
+                <p>{user.bio?.trim() || 'Add a short bio to tell others about your movie taste.'}</p>
+              </section>
+            )}
+
             {/* Favorite List Grid */}
             <div style={{ marginTop: '14px', marginBottom: '16px' }}>
               <h4 style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Favorite List ({user.favoriteMovies?.length || 0})
               </h4>
               {user.favoriteMovies?.length > 0 ? (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '8px' }}>
+                <div className="profile-favorites-grid">
                   {user.favoriteMovies.map((movie) => (
                     <div key={movie.id} style={{ position: 'relative' }}>
                       <img
@@ -207,6 +216,19 @@ export const ProfilePage = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
+                </div>
+                <div>
+                  <label style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>About Me</label>
+                  <textarea
+                    rows={4}
+                    maxLength={280}
+                    value={formData.bio}
+                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                    placeholder="Tell others what you enjoy watching..."
+                  />
+                  <p style={{ textAlign: 'right', fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '4px' }}>
+                    {formData.bio.length}/280
+                  </p>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                   <div>
@@ -280,7 +302,7 @@ export const ProfilePage = () => {
                 </button>
               </form>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <div className="profile-details-grid">
                 {[
                   { label: 'Made in', value: user.madeIn || 'Not specified' },
                   { label: 'Job', value: user.job || 'Not specified' },
@@ -290,11 +312,7 @@ export const ProfilePage = () => {
                 ].map((field) => (
                   <div
                     key={field.label}
-                    style={{
-                      backgroundColor: 'var(--bg-input)',
-                      padding: '10px 12px',
-                      borderRadius: 'var(--radius-sm)'
-                    }}
+                    className="profile-detail-item"
                   >
                     <span style={{ display: 'block', fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                       {field.label}

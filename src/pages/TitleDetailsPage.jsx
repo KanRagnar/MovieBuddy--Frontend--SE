@@ -32,6 +32,7 @@ export const TitleDetailsPage = () => {
   const isFavorite = Boolean(
     user?.favoriteMovies?.some((fav) => Number(typeof fav === 'object' ? fav.id : fav) === Number(titleId))
   );
+  const imdbRating = Number.isFinite(title?.imdbRating) ? `${title.imdbRating.toFixed(1)}/10` : 'N/A';
 
   const loadData = async () => {
     setLoading(true);
@@ -175,14 +176,16 @@ export const TitleDetailsPage = () => {
             marginBottom: '18px'
           }}
         >
-          <img
-            src={title.poster || FALLBACK_POSTER}
-            alt={title.title}
-            onError={(e) => {
-              e.currentTarget.src = FALLBACK_POSTER;
-            }}
-            style={{ width: '100%', maxHeight: '300px', objectFit: 'cover', display: 'block' }}
-          />
+          <div className="title-poster-frame">
+            <img
+              src={title.poster || FALLBACK_POSTER}
+              alt={title.title}
+              onError={(e) => {
+                e.currentTarget.src = FALLBACK_POSTER;
+              }}
+              className="title-detail-poster"
+            />
+          </div>
           <div style={{ padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
               <div>
@@ -233,7 +236,7 @@ export const TitleDetailsPage = () => {
                   fontWeight: 700
                 }}
               >
-                IMDb 8.6/10
+                IMDb {imdbRating}
               </span>
               <span
                 style={{

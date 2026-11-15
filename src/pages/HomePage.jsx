@@ -3,7 +3,7 @@ import { Search, Filter, X } from 'lucide-react';
 import { fetchTitles, searchTitles } from '../api/titleApi.js';
 import { GENRES } from '../utils/constants.js';
 import { Navbar } from '../components/Navbar.jsx';
-import { TitleCard } from '../components/TitleCard.jsx';
+import { TitleCarousel } from '../components/TitleCarousel.jsx';
 import { Loader } from '../components/Loader.jsx';
 
 export const HomePage = () => {
@@ -143,22 +143,14 @@ export const HomePage = () => {
             {movies.length > 0 && (
               <section style={{ marginBottom: '22px' }}>
                 <h3 className="section-title">Top Movies</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                  {movies.map((item) => (
-                    <TitleCard key={item.id} title={item} />
-                  ))}
-                </div>
+                <TitleCarousel titles={movies} label="Top Movies" />
               </section>
             )}
 
             {series.length > 0 && (
               <section>
                 <h3 className="section-title">Top Series</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                  {series.map((item) => (
-                    <TitleCard key={item.id} title={item} />
-                  ))}
-                </div>
+                <TitleCarousel titles={series} label="Top Series" />
               </section>
             )}
           </>
